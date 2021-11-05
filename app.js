@@ -8,6 +8,7 @@ var indexRouter = require("./routes/index");
 
 var addProduct = require("./routes/addProduct_route");
 var getProduct = require("./routes/getProduct_route");
+var updateQuantity = require("./routes/updateQuantity_route");
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use("/", indexRouter);
 
 app.use("/addProduct", addProduct);
 app.use("/getProduct", getProduct);
+app.use("/updateQuantity", updateQuantity);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

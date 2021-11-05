@@ -10,5 +10,12 @@ var Product = {
   getProducts: function (callback) {
     return db.query("Select * from product", callback);
   },
+  updateProductQuantity: function (updateDetails, callback) {
+    return db.query(
+      "Update product set quantity=? where barcode=?",
+      [updateDetails.quantity, updateDetails.barcode],
+      callback
+    );
+  },
 };
 module.exports = Product;
