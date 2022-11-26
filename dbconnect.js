@@ -1,8 +1,8 @@
 var mysql = require("mysql");
 var connection = mysql.createPool({
-  host: "sql6.freemysqlhosting.net",
-  user: "sql6459249",
-  password: "rfNwFCXegJ",
-  database: "sql6459249",
+  host: "me.airtap.in",
+  user: "navkarin_airtap",
+  password: "&tX]8n5ckVFe",
+  database: "navkarin_airtap",
 });
 module.exports = connection;

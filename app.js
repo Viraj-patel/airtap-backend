@@ -3,12 +3,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+const multer = require("multer");
 var indexRouter = require("./routes/index");
 
-var addProduct = require("./routes/addProduct_route");
-var getProduct = require("./routes/getProduct_route");
-var updateQuantity = require("./routes/updateQuantity_route");
+var updateuserDetails = require("./routes/updateUserDetails_route");
+var updateCompanyDetails = require("./routes/updateCompanyDetails_route");
+var updateSocialMediaDetails = require("./routes/updateSocialMediaDetails_route");
+var updateMobileDetails = require("./routes/updateMobileDetails_route");
+var getUserDetails = require("./routes/getUserDetails_route");
+var checkLogin = require("./routes/checkLogin_route");
 
 var app = express();
 
@@ -29,11 +32,51 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use("/", indexRouter);
 
-app.use("/addProduct", addProduct);
-app.use("/getProduct", getProduct);
-app.use("/updateQuantity", updateQuantity);
+app.use("/getUserDetails", getUserDetails);
+app.use("/checkLogin", checkLogin);
+app.use("/personalDetails", updateuserDetails);
+app.use("/companyDetails", updateCompanyDetails);
+app.use("/socialDetails", updateSocialMediaDetails);
+app.use("/mobileDetails", updateMobileDetails);
+
+//! Use of Multer
+var storage = multer.diskStorage({
+  destination: (req, file, callBack) => {
+    callBack(null, "./public/images/"); // './public/images/' directory name where save the file
+  },
+  filename: (req, file, callBack) => {
+    callBack(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+var upload = multer({
+  storage: storage,
+});
+
+//@type   POST
+//route for post data
+app.post("/uploadImage", upload.single("image"), (req, res) => {
+  if (!req.file) {
+    console.log("No file upload");
+  } else {
+    console.log(req.file.filename);
+    var imgsrc = "http://127.0.0.1:4000/images/" + req.file.filename;
+    var insertData = "update user_details set profile_pic = ? where id = ?";
+    db.query(insertData, [imgsrc, req.id], (err, result) => {
+      if (err) throw err;
+      console.log("file uploaded");
+    });
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
