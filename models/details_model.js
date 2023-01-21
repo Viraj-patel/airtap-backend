@@ -58,6 +58,13 @@ var Details = {
       callback
     );
   },
+  updateProfileImage: function (updateDetails, callback) {
+    return db.query(
+      "UPDATE user_details SET profile_pic=? WHERE id=?",
+      [updateDetails.fileName, updateDetails.id],
+      callback
+    );
+  },
   insertCompanyDetails: function (updateDetails, callback) {
     return db.query(
       "INSERT INTO `company_details`( `fk_user_id`, `company_name`, `company_description`, `website`) VALUES (?,?,?,?)",
@@ -68,6 +75,13 @@ var Details = {
         updateDetails.website,
       ],
       callback
+    );
+  },
+  createUser: function (body, callBack) {
+    return db.query(
+      "INSERT into `user_details`(password) VALUES (?)",
+      body.password,
+      callBack
     );
   },
   insertSocialMediaDetails: function (updateDetails, callback) {

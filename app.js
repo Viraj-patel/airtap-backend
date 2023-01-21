@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const multer = require("multer");
 var indexRouter = require("./routes/index");
+const fileupload = require("express-fileupload");
 
 var updateuserDetails = require("./routes/updateUserDetails_route");
 var updateCompanyDetails = require("./routes/updateCompanyDetails_route");
@@ -12,7 +13,8 @@ var updateSocialMediaDetails = require("./routes/updateSocialMediaDetails_route"
 var updateMobileDetails = require("./routes/updateMobileDetails_route");
 var getUserDetails = require("./routes/getUserDetails_route");
 var checkLogin = require("./routes/checkLogin_route");
-
+var createUser = require("./routes/createUser_route");
+var profile = require("./models/details_model.js");
 var app = express();
 
 var db = require("./dbconnect");
@@ -31,8 +33,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
+// app.use(express.static("files"));
 const bodyParser = require("body-parser");
+
+app.use(fileupload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -44,6 +48,32 @@ app.use("/personalDetails", updateuserDetails);
 app.use("/companyDetails", updateCompanyDetails);
 app.use("/socialDetails", updateSocialMediaDetails);
 app.use("/mobileDetails", updateMobileDetails);
+app.use("/createUser", createUser);
+
+app.post("/upload", (req, res) => {
+  console.log("=====================", app.port, "=====================");
+  const newpath = __dirname + "/public/profile/";
+  const file = req.files.file;
+  console.log(req.body.id);
+  const filename = `${req.body.id}.${
+    file.name.split(".")[file.name.split(".").length - 1]
+  }`;
+  file.mv(`${newpath}${filename}`, (err) => {
+    if (err) {
+      res.status(500).send({ message: "File upload failed", code: 200 });
+    }
+    profile.updateProfileImage(
+      { ...req.body, fileName: `http://localhost:4000/profile/${filename}` },
+      function (err, rows) {
+        if (err) {
+          res.json(err);
+        } else {
+          res.status(200).send({ message: "File Uploaded", code: 200 });
+        }
+      }
+    );
+  });
+});
 
 //! Use of Multer
 var storage = multer.diskStorage({
