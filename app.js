@@ -63,7 +63,7 @@ app.post("/upload", (req, res) => {
       res.status(500).send({ message: "File upload failed", code: 200 });
     }
     profile.updateProfileImage(
-      { ...req.body, fileName: `http://localhost:4000/profile/${filename}` },
+      { ...req.body, fileName: filename },
       function (err, rows) {
         if (err) {
           res.json(err);
