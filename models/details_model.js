@@ -79,8 +79,8 @@ var Details = {
   },
   createUser: function (body, callBack) {
     return db.query(
-      "INSERT into `user_details`(password) VALUES (?)",
-      body.password,
+      "INSERT into `user_details`(password, unique_id) VALUES (?,?)",
+      [body.password, body.unique_id],
       callBack
     );
   },
