@@ -52,7 +52,7 @@ app.use("/createUser", createUser);
 
 app.post("/upload", (req, res) => {
   console.log("=====================", app.port, "=====================");
-  const newpath = __dirname + "/public/profile/";
+  const newpath = __dirname + "/public/";
   const file = req.files.file;
   console.log(req.body.id);
   const filename = `${req.body.id}.${
