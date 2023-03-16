@@ -84,6 +84,27 @@ var Details = {
       callBack
     );
   },
+  createUserCompany: function (body, callBack) {
+    return db.query(
+      "INSERT into `company_details`(fk_user_id) VALUES (?)",
+      [body.id],
+      callBack
+    );
+  },
+  createUserSocialmedia: function (body, callBack) {
+    return db.query(
+      "INSERT into `social_media_details`(fk_user_id) VALUES (?)",
+      [body.id],
+      callBack
+    );
+  },
+  createUserMobile: function (body, callBack) {
+    return db.query(
+      "INSERT into `mobile_number`(fk_user_id) VALUES (?)",
+      [body.id],
+      callBack
+    );
+  },
   insertSocialMediaDetails: function (updateDetails, callback) {
     return db.query(
       "INSERT INTO `social_media_details`( `fk_user_id`, `instagram`, `facebook`, `linkedin`, `twitter`, `upi`, `map`, `youtube`, `snapchat`) VALUES (?,?,?,?,?,?,?,?,?)",

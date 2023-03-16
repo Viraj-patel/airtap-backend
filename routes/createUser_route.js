@@ -22,6 +22,9 @@ router.get("/", function (req, res, next) {
     if (err) {
       res.json(err);
     } else {
+      details.createUserCompany({ id: rows.insertId });
+      details.createUserMobile({ id: rows.insertId });
+      details.createUserSocialmedia({ id: rows.insertId });
       res.json({ id: rows.insertId, password, unique_id });
     }
   });
