@@ -84,6 +84,26 @@ var Details = {
       callBack
     );
   },
+  createNewUser: function (body, callBack) {
+    return db.query(
+      "INSERT into `user_info` (unique_id, email_id,template_id, password) VALUES (?,?,?,?)",
+      [body.unique_id, body.email_id, body.template_id, body.password],
+      callBack
+    );
+  },
+  getTemplate: function (details, callback) {
+    return db.query(
+      "select * from template where id=?",
+      [details.template_id],
+      callback
+    );
+  },
+  addTemplateFields: function (values, callBack) {
+    return db.query(
+      `INSERT INTO user_fields (fk_user_id, field_id) VALUES ${values}`,
+      callBack
+    );
+  },
   createUserCompany: function (body, callBack) {
     return db.query(
       "INSERT into `company_details`(fk_user_id) VALUES (?)",

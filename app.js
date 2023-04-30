@@ -14,6 +14,7 @@ var updateMobileDetails = require("./routes/updateMobileDetails_route");
 var getUserDetails = require("./routes/getUserDetails_route");
 var checkLogin = require("./routes/checkLogin_route");
 var createUser = require("./routes/createUser_route");
+var createNewUser = require("./routes/createNewUser_route");
 var profile = require("./models/details_model.js");
 var app = express();
 
@@ -49,6 +50,7 @@ app.use("/companyDetails", updateCompanyDetails);
 app.use("/socialDetails", updateSocialMediaDetails);
 app.use("/mobileDetails", updateMobileDetails);
 app.use("/createUser", createUser);
+app.use("/createNewUser", createNewUser);
 
 app.post("/upload", (req, res) => {
   console.log("=====================", app.port, "=====================");
