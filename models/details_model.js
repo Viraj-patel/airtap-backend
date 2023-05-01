@@ -10,7 +10,7 @@ var Details = {
   },
   checkLoginDetails: function (details, callback) {
     return db.query(
-      "select id from user_info where email_id=? and password=?",
+      "select unique_id from user_info where email_id=? and password=?",
       [details.email_id, details.password],
       callback
     );
