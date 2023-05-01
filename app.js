@@ -12,6 +12,7 @@ var updateCompanyDetails = require("./routes/updateCompanyDetails_route");
 var updateSocialMediaDetails = require("./routes/updateSocialMediaDetails_route");
 var updateMobileDetails = require("./routes/updateMobileDetails_route");
 var getUserDetails = require("./routes/getUserDetails_route");
+var getNewUserDetails = require("./routes/getNewUserDetails_route");
 var checkLogin = require("./routes/checkLogin_route");
 var checkNewLogin = require("./routes/checkNewLogin_route");
 var createUser = require("./routes/createUser_route");
@@ -45,6 +46,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", indexRouter);
 
 app.use("/getUserDetails", getUserDetails);
+app.use("/getNewUserDetails", getNewUserDetails);
 app.use("/checkLogin", checkLogin);
 app.use("/checkNewLogin", checkNewLogin);
 app.use("/personalDetails", updateuserDetails);
