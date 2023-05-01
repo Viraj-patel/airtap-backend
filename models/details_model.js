@@ -8,6 +8,13 @@ var Details = {
       callback
     );
   },
+  checkLoginDetails: function (details, callback) {
+    return db.query(
+      "select id from user_info where email_id=? and password=?",
+      [details.email_id, details.password],
+      callback
+    );
+  },
   updateuserDetails: function (updateDetails, callback) {
     return db.query(
       "UPDATE user_details SET name=?,whatsapp=? WHERE id=?",

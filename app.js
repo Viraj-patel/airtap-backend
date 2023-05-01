@@ -13,6 +13,7 @@ var updateSocialMediaDetails = require("./routes/updateSocialMediaDetails_route"
 var updateMobileDetails = require("./routes/updateMobileDetails_route");
 var getUserDetails = require("./routes/getUserDetails_route");
 var checkLogin = require("./routes/checkLogin_route");
+var checkNewLogin = require("./routes/checkNewLogin_route");
 var createUser = require("./routes/createUser_route");
 var createNewUser = require("./routes/createNewUser_route");
 var profile = require("./models/details_model.js");
@@ -45,6 +46,7 @@ app.use("/", indexRouter);
 
 app.use("/getUserDetails", getUserDetails);
 app.use("/checkLogin", checkLogin);
+app.use("/checkNewLogin", checkNewLogin);
 app.use("/personalDetails", updateuserDetails);
 app.use("/companyDetails", updateCompanyDetails);
 app.use("/socialDetails", updateSocialMediaDetails);
