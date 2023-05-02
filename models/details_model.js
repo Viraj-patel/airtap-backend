@@ -22,6 +22,22 @@ var Details = {
       callback
     );
   },
+  updateDetails: function (updateDetails, callback) {
+    console.log(updateDetails);
+    const fields = [];
+    const values = [];
+    Object.keys(updateDetails.obj).forEach((key) => {
+      fields.push(key);
+      values.push(updateDetails.obj[key]);
+    });
+    let sql = "UPDATE user_fields SET value = CASE ";
+    for (let i = 0; i < fields.length; i++) {
+      sql += `WHEN field_id='${fields[i]}' and fk_user_id in (select id from user_info where unique_id='${updateDetails.unique_id}') THEN '${values[i]}'`;
+    }
+    sql += "else value END";
+    console.log(sql);
+    return db.query(sql, callback);
+  },
   updateCompanyDetails: function (updateDetails, callback) {
     return db.query(
       "UPDATE company_details SET company_name=?,Designation=?, emailid=?, website=?, address=?, map=? WHERE id=?",

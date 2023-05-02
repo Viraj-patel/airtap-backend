@@ -8,6 +8,7 @@ var indexRouter = require("./routes/index");
 const fileupload = require("express-fileupload");
 
 var updateuserDetails = require("./routes/updateUserDetails_route");
+var updateDetails = require("./routes/updateDetails_route");
 var updateCompanyDetails = require("./routes/updateCompanyDetails_route");
 var updateSocialMediaDetails = require("./routes/updateSocialMediaDetails_route");
 var updateMobileDetails = require("./routes/updateMobileDetails_route");
@@ -50,6 +51,7 @@ app.use("/getNewUserDetails", getNewUserDetails);
 app.use("/checkLogin", checkLogin);
 app.use("/checkNewLogin", checkNewLogin);
 app.use("/personalDetails", updateuserDetails);
+app.use("/updateDetails", updateDetails);
 app.use("/companyDetails", updateCompanyDetails);
 app.use("/socialDetails", updateSocialMediaDetails);
 app.use("/mobileDetails", updateMobileDetails);
